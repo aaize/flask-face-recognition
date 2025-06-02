@@ -1,7 +1,10 @@
 services:
   - type: web
-    name: face-recognition-api
+    name: flask-face-recognition
     env: docker
-    plan: free
-    branch: main
     repo: https://github.com/aaize/flask-face-recognition
+    branch: main  # or whichever branch you want to deploy
+    plan: free
+    healthCheckPath: /  # or /predict or any valid endpoint
+    autoDeploy: true
+
