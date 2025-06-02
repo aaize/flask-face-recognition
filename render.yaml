@@ -3,8 +3,14 @@ services:
     name: flask-face-recognition
     env: docker
     repo: https://github.com/aaize/flask-face-recognition
-    branch: main  # or whichever branch you want to deploy
+    region: oregon
     plan: free
-    healthCheckPath: /  # or /predict or any valid endpoint
-    autoDeploy: true
-
+    branch: main
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SUPABASE_URL
+        value: https://otgiyovvviqcxpbqbekr.supabase.co
+      - key: SUPABASE_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90Z2l5b3Z2dmlxY3hwYnFiZWtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg4NTQ1ODMsImV4cCI6MjA2NDQzMDU4M30.EU9yzGjMC6cuw_9k3gxp4fBWIMBGsfOL_NDMorDg240
+    ports:
+      - 8000
