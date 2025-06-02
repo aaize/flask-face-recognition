@@ -1,11 +1,7 @@
-# Use an official Python base image
-FROM python:3.11-slim
+# Use an official Python runtime as a parent image
+FROM python:3.11
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
-# Install system dependencies for dlib
+# Install system dependencies for dlib and face-recognition
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -13,25 +9,24 @@ RUN apt-get update && apt-get install -y \
     liblapack-dev \
     libx11-dev \
     libgtk-3-dev \
-    libboost-python-dev \
-    libboost-thread-dev \
-    && apt-get clean
+    libboost-all-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create working directory
+# Set working directory
 WORKDIR /app
 
-# Copy requirements
-COPY requirements.txt /app/
+# Copy requirements first (for caching)
+COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copy the rest of your code
-COPY . /app/
+# Copy the rest of the app
+COPY . .
 
-# Expose port (change if your app uses a different port)
+# Expose the port your Flask app runs on
 EXPOSE 8000
 
-# Start the Flask app with Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app:app"]
+# Run the app with gunicorn
+CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:8000"]
