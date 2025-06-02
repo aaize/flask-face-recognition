@@ -5,4 +5,3 @@ services:
     plan: free
     branch: main
     repo: https://github.com/aaize/flask-face-recognition
-
