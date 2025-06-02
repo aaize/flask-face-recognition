@@ -2,11 +2,9 @@ services:
   - type: web
     name: flask-face-recognition
     env: docker
-    repo: https://github.com/aaize/flask-face-recognition
-    region: oregon
+    image: aaize/flask-face-recognition:latest  # Use the prebuilt image
     plan: free
-    branch: main
-    dockerfilePath: ./Dockerfile
+    region: oregon
     envVars:
       - key: SUPABASE_URL
         value: https://otgiyovvviqcxpbqbekr.supabase.co
