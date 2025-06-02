@@ -2,7 +2,7 @@ services:
   - type: web
     name: flask-face-recognition
     env: docker
-    image: aaize/flask-face-recognition:latest  # Use the prebuilt image
+    image: aaize/flask-face-recognition:latest
     plan: free
     region: oregon
     envVars:
